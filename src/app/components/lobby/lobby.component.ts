@@ -25,35 +25,35 @@ export class LobbyComponent extends BaseComponent implements OnInit {
   ngOnInit(): void {
     this.lobbiesService.playerJoinedLobby.pipe(
       distinctUntilChanged(),
-      takeUntil(super.destroy$)
+      takeUntil(this.destroy$)
     ).subscribe((player: Player) => {
       this.notifications.push(`Player ${player.name} joined the lobby`);
     });
 
     this.lobbiesService.playerLeftLobby.pipe(
       distinctUntilChanged(),
-      takeUntil(super.destroy$)
+      takeUntil(this.destroy$)
     ).subscribe((player: Player) => {
       this.notifications.push(`Player ${player.name} left the lobby`);
     });
 
     this.lobbiesService.currentlyJoinedLobby$.pipe(
       distinctUntilChanged(),
-      takeUntil(super.destroy$)
+      takeUntil(this.destroy$)
     ).subscribe((lobby: ILobby) => {
       this.lobby = lobby;
     })
 
     this.lobbiesService.currentPlayerLeftLobby.pipe(
       distinctUntilChanged(),
-      takeUntil(super.destroy$)
+      takeUntil(this.destroy$)
     ).subscribe(() => {
       this.router.navigateByUrl('lobbies');
     });
 
     this.lobbiesService.currentlyJoinedLobbyGameStarted.pipe(
       distinctUntilChanged(),
-      takeUntil(super.destroy$)
+      takeUntil(this.destroy$)
     ).subscribe(() => {
       this.router.navigateByUrl('game');
     });

@@ -29,7 +29,7 @@ export class NewLobbyComponent extends BaseComponent implements OnInit {
 
     this.lobbiesService.lobbyCreatedByCurrentPlayer.pipe(
       distinctUntilChanged(),
-      takeUntil(super.destroy$)
+      takeUntil(this.destroy$)
     ).subscribe(() => {
       this.router.navigateByUrl('lobby');
     });

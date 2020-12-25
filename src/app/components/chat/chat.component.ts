@@ -35,14 +35,14 @@ export class ChatComponent extends BaseComponent implements OnInit {
 
     this.lobbiesService.currentlyJoinedLobby$.pipe(
       distinctUntilChanged(),
-      takeUntil(super.destroy$)
+      takeUntil(this.destroy$)
     ).subscribe((lobby: ILobby) => {
       this.lobby = lobby;
     })
 
     this.chatService.messageReceived.pipe(
       distinctUntilChanged(),
-      takeUntil(super.destroy$)
+      takeUntil(this.destroy$)
     ).subscribe((message: Message) => {
       this.ngZone.run(() => {
         if (message.playerId !== this.playerId) {

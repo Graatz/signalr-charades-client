@@ -28,14 +28,13 @@ export class LobbiesComponent extends BaseComponent implements OnInit {
   }
 
   ngOnInit(): void {
-
     this.lobbiesService.getLobbies();
 
     this.lobbies$ = this.lobbiesService.selectLobbies();
 
     this.lobbiesService.currentPlayerJoinedLobby.pipe(
       distinctUntilChanged(),
-      takeUntil(super.destroy$)
+      takeUntil(this.destroy$)
     ).subscribe(() => {
       this.router.navigateByUrl('lobby');
     })

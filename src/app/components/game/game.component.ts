@@ -62,7 +62,7 @@ export class GameComponent extends BaseComponent implements OnInit {
 
     this.lobbiesService.currentlyJoinedLobby$.pipe(
       distinctUntilChanged(),
-      takeUntil(super.destroy$)
+      takeUntil(this.destroy$)
     ).subscribe((lobby: ILobby) => {
       this.lobby = lobby;
     })
@@ -70,7 +70,7 @@ export class GameComponent extends BaseComponent implements OnInit {
     this.championsData = this.riotService.getChampions();
     this.championsData.pipe(
       distinctUntilChanged(),
-      takeUntil(super.destroy$)
+      takeUntil(this.destroy$)
     ).subscribe((result: IChampionsData) => {
     })
 
@@ -81,7 +81,7 @@ export class GameComponent extends BaseComponent implements OnInit {
   private subscribeToEvents(): void {
     this.drawingService.segmentPointReceived.pipe(
       distinctUntilChanged(),
-      takeUntil(super.destroy$)
+      takeUntil(this.destroy$)
     ).subscribe((point: IPoint) => {
       this.ngZone.run(() => {
         this.drawPointFromServer(point)

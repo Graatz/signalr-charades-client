@@ -4,7 +4,7 @@
 </div>
 
 <div class="lobbies-container">
-    <p *ngIf="(lobbies$ | async).length === 0">No lobbies found</p>
+    <p *ngIf="(lobbies$ | async)?.length === 0">No lobbies found</p>
     <div *ngFor="let lobby of (lobbies$ | async)" class="lobby" (click)="lobby.inGame === false ? onJoinLobby(lobby.id) : false" [class.lobby-game-in-progress]="lobby.inGame === true">
         <p>{{ lobby.name }}</p>
         <p *ngIf="lobby.inGame === true">Game in progress</p>
