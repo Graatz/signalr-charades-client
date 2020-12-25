@@ -1,0 +1,65 @@
+/* You can add global styles to this file, and also import other style files */
+* {
+    box-sizing: border-box;
+}
+
+h1, h2, h3 {
+    font-family: Calibri;
+    color: #000;
+    margin: 0;
+}
+
+p {
+    font-family: Calibri;
+    font-weight: 400;
+    margin: 0;
+    font-size: 18px;
+    color: #000;
+}
+
+body {
+    margin: 0;
+    font-family: Calibri;
+    background-color: #fff;
+    color: #000;
+}
+
+input {
+    font-family: Calibri;
+    padding: 15px;
+    font-size: 18px;
+    font-weight: 400;
+    background-color: #eee;
+    outline: none;
+    border: none;
+    color: #000;
+    border-radius: 5px;
+}
+
+button {
+    text-transform: uppercase;
+    font-family: Calibri;
+    font-weight: 600;
+    font-size: 18px;
+    padding: 15px;
+    border-radius: 5px;
+    background-color: #006eff;
+    color: #fff;
+    border: none;
+    outline: none;
+    &:hover {
+        cursor: pointer;
+        background-color: #0063e4;
+    }
+
+    & + button {
+        margin-left: 10px;
+    }
+}
+
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 25px;
+}

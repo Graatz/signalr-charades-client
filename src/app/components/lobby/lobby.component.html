@@ -1,0 +1,13 @@
+<div class="header">
+    <h1>Lobby <span *ngIf="lobby">({{ lobby.name }})</span></h1>
+    <button type="button" (click)="onLeaveLobbyClick()">Leave</button>
+</div>
+
+<p *ngFor="let notification of notifications" class="p-notification">{{ notification }}</p>
+
+<div class="header">
+    <h2>Players</h2>
+</div>
+<p *ngFor="let player of lobby.players" class="p-player-name">{{ player.name }}</p>
+
+<button type="button" (click)="onStartGameClick()" class="btn-start-game">Start game</button>

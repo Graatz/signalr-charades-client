@@ -1,0 +1,8 @@
+<div class="header">
+    <h1>New player</h1>
+</div>
+<p class="p-new-player">Please, choose your player name</p>
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <input type="text" placeholder="Player name" formControlName="playerName">
+    <button type="submit">Confirm</button>
+</form>

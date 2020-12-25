@@ -1,0 +1,13 @@
+<div class="chat-container">
+    <div class="chat-messages">
+        <!--<ng-container *ngFor="let champion of (championsData | async)?.data | keyvalue">
+            <p class="chat-message">{{champion.value.name}}</p>
+            <img src="http://ddragon.leagueoflegends.com/cdn/10.16.1/img/champion/{{champion.value.image.full}}">
+        </ng-container>-->
+        <div class="chat-message" *ngFor="let message of messages" [class.current-player-chat-message]="message.playerId === playerId">
+            <p class="chat-message-sender">{{message.playerId}}:</p>
+            <p class="chat-message-content">{{message.content}}</p>
+        </div>
+    </div>
+    <input [formControl]="chatInput" type="text" (keydown.enter)="sendMessage()" placeholder="Message">
+</div>

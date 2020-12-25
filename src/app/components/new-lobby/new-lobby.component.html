@@ -1,0 +1,10 @@
+<div class="header">
+    <h1>New lobby</h1>
+</div>
+<p class="p-new-lobby">
+    Please, type in a name for the lobby you wish to create.
+</p>
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <input type="text" placeholder="Lobby Name" formControlName="lobbyName">
+    <button type="submit">Confirm</button>
+</form>
