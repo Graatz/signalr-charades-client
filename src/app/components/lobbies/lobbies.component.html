@@ -1,12 +1,18 @@
-<div class="header">
-    <h1>Lobbies</h1>
-    <button type="button" (click)="onAddNewLobbyClick()">+ Add new lobby</button>
-</div>
-
-<div class="lobbies-container">
-    <p *ngIf="(lobbies$ | async)?.length === 0">No lobbies found</p>
-    <div *ngFor="let lobby of (lobbies$ | async)" class="lobby" (click)="lobby.inGame === false ? onJoinLobby(lobby.id) : false" [class.lobby-game-in-progress]="lobby.inGame === true">
-        <p>{{ lobby.name }}</p>
-        <p *ngIf="lobby.inGame === true">Game in progress</p>
+<div class="tile">
+    <div class="tile-content">
+        <div class="header">
+            <h1>Lobbies</h1>
+        </div>
+        
+        <div class="lobbies-container">
+            <p *ngIf="(lobbies$ | async)?.length === 0">No lobbies found</p>
+            <div *ngFor="let lobby of (lobbies$ | async)" class="lobby" (click)="lobby.inGame === false ? onJoinLobby(lobby.id) : false" [class.lobby-game-in-progress]="lobby.inGame === true">
+                <p>{{ lobby.name }}</p>
+                <p *ngIf="lobby.inGame === true">Game in progress</p>
+            </div>
+        </div>
+    </div>
+    <div class="tileactions">
+        <button type="button" (click)="onAddNewLobbyClick()">+ Add new lobby</button>
     </div>
 </div>

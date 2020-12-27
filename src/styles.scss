@@ -4,13 +4,13 @@
 }
 
 h1, h2, h3 {
-    font-family: Calibri;
+    font-family: 'Gochi Hand', cursive;;
     color: #000;
     margin: 0;
 }
 
 p {
-    font-family: Calibri;
+    font-family: 'Gochi Hand', cursive;;
     font-weight: 400;
     margin: 0;
     font-size: 18px;
@@ -19,37 +19,39 @@ p {
 
 body {
     margin: 0;
-    font-family: Calibri;
-    background-color: #fff;
+    font-family: 'Gochi Hand', cursive;;
+    background-color: #eee;
     color: #000;
 }
 
 input {
-    font-family: Calibri;
+    font-family: 'Gochi Hand', cursive;;
     padding: 15px;
     font-size: 18px;
     font-weight: 400;
-    background-color: #eee;
+    background-color: #fff;
     outline: none;
     border: none;
     color: #000;
     border-radius: 5px;
+    border: 2px solid #eee;
 }
 
 button {
-    text-transform: uppercase;
-    font-family: Calibri;
-    font-weight: 600;
-    font-size: 18px;
-    padding: 15px;
+    font-family: 'Gochi Hand', cursive;;
+    font-weight: 400;
+    font-size: 24px;
+    padding: 0;
     border-radius: 5px;
-    background-color: #006eff;
-    color: #fff;
+    background-color: #fff;
+    color: #000;
     border: none;
     outline: none;
-    &:hover {
+    transition: all 0.1s ease;
+
+    &:hover, &:focus {
         cursor: pointer;
-        background-color: #0063e4;
+        transform: scale(0.9);
     }
 
     & + button {
@@ -62,4 +64,34 @@ button {
     align-items: center;
     justify-content: space-between;
     margin-bottom: 25px;
+}
+
+.tile {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 30px;
+    background-color: #fff;
+    border-radius: 5px;
+    width: 900px;
+    max-width: 100%;
+    min-height: 600px;
+    max-height: 100%;
+    
+    .tile.content {
+
+    }
+
+    .tile-actions {
+        margin-top: 15px;
+        display: flex;
+        justify-content: space-between;
+        border-radius: 5px;
+    }
+}
+
+.avatar {
+    border-radius: 50%;
+    width: 45px;
+    height: 45px;
 }

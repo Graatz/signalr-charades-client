@@ -1,8 +1,15 @@
-.p-player-name {
+.p-notification {
+    font-weight: 400;
     margin-bottom: 10px;
 }
 
-.p-notification {
-    font-weight: 600;
+.player {
+    display: flex;
+    align-items: center;
+
+    .player-avatar {
+        margin-right: 10px;
+    }
+
     margin-bottom: 10px;
 }

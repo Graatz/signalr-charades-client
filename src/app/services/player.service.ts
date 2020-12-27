@@ -11,8 +11,8 @@ export class PlayerService {
         this.registerOnServerEvents();
     }
 
-    public createPlayer(playerName: string): void {
-        this.hubService.invoke('CreatePlayer', playerName);
+    public createPlayer(playerName: string, avatar: string): void {
+        this.hubService.invoke('CreatePlayer', playerName, avatar);
     }
 
     private registerOnServerEvents(): void {

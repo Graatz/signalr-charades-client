@@ -1,4 +1,4 @@
-import { Component, OnInit, NgZone, Input } from '@angular/core';
+import { Component, OnInit, NgZone, Input, ViewChild, ElementRef } from '@angular/core';
 import { Message } from '../../models/chat.models';
 import { ChatService } from '../../services/chat.service';
 import { FormControl } from '@angular/forms';
@@ -7,6 +7,7 @@ import { distinctUntilChanged, takeUntil } from 'rxjs/operators';
 import { ILobby } from 'src/app/models/lobbies.models';
 import { PlayerService } from 'src/app/services/player.service';
 import { LobbiesService } from 'src/app/services/lobbies.service';
+import { Player } from 'src/app/models/player.models';
 
 @Component({
   selector: 'app-chat',
@@ -14,6 +15,9 @@ import { LobbiesService } from 'src/app/services/lobbies.service';
   styleUrls: ['./chat.component.scss']
 })
 export class ChatComponent extends BaseComponent implements OnInit {
+  @ViewChild('chat')
+  public chatElement: ElementRef;
+  
   public playerId: string;
   public chatInput: FormControl = new FormControl(null);
   public messages: Message[] = [];
@@ -32,7 +36,7 @@ export class ChatComponent extends BaseComponent implements OnInit {
 
   ngOnInit(): void {
     this.playerId = this.playerService.getCurrentPlayer().id;
-
+    
     this.lobbiesService.currentlyJoinedLobby$.pipe(
       distinctUntilChanged(),
       takeUntil(this.destroy$)
@@ -53,6 +57,10 @@ export class ChatComponent extends BaseComponent implements OnInit {
     });
   }
 
+  public getLobbyPlayer(playerId: string): Player {
+    return this.lobby.players.find(p => p.id === playerId);
+  }
+
   public sendMessage(): void {
     const messageContent = this.chatInput.value;
     this.chatInput.setValue(null);
@@ -68,5 +76,9 @@ export class ChatComponent extends BaseComponent implements OnInit {
       this.messages.push(message);
       this.chatService.sendMessage(message, this.lobby.id);
     }
+  }
+
+  private scrollChatToBottom(): void {
+    this.chatElement.nativeElement.scrollTop = this.chatElement.nativeElement.scrollHeight;
   }
 }

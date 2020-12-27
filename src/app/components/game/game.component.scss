@@ -1,3 +1,7 @@
+:host {
+    height: 100%;
+}
+
 .main-container {
     width: 100vw;
     height: 100vh;
@@ -12,20 +16,71 @@
     align-items: center;
     justify-content: space-between;
     height: 100%;
-}
-
-.canvas-container {
-    display: flex;
-    max-height: 700px;
-    border: 2px solid #eee;
+    max-width: 100vw;
+    width: 1600px;
     border-radius: 5px;
 }
 
-.actions-container {
+.canvas-wrapper {
     display: flex;
-    width: 100%;
+    flex-grow: 1;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: calc(100% - 600px);
+    height: 100%;
+}
+
+.canvas-container {
+    width: auto;
+    height: auto;
+    //background: url('https://i.stack.imgur.com/EkOSl.jpg') repeat;
+    //opacity: 0.2;
 }
 
 .canvas {
+    background-color: transparent;
     background-color: #fff;
+    border-radius: 5px;
+}
+
+.left-panel, .right-panel {
+    width: 300px;
+    height: 100%;
+    background-color: #fff;
+    border-radius: 5px;
+}
+
+.left-panel {
+    padding: 15px;
+    margin-right: 15px;
+}
+
+.right-panel {
+    margin-left: 15px;
+}
+
+.upper-panel, .lower-panel {
+    flex-grow: 1;
+    width: 100%;
+    background-color: #fff;
+
+    .buttons-container {
+        height: 100%;
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+}
+
+.player {
+    display: flex;
+    align-items: center;
+
+    .player-avatar {
+        margin-right: 10px;
+    }
+
+    margin-bottom: 10px;
 }

@@ -1,12 +1,32 @@
 <div class="game-container">
-    <div class="canvas-container">
-        <canvas #canvas width="1300" height="700" class="canvas" id="canvas"></canvas>
+    <div class="left-panel">
+        <div *ngFor="let player of lobby.players" class="player">
+            <img [src]="player.avatar" alt="avatar" class="player-avatar avatar">
+            <p class="player-name">{{ player.name }}</p>
+        </div>
     </div>
-    <app-chat></app-chat>
-    <!-- <div class="actions-container">
-        <button (click)="clearCanvas()">CLEAR</button>
-        <button (click)="clearCanvas()">COLOR</button>
-        <button (click)="clearCanvas()">UNDO</button>
-        <button (click)="clearCanvas()">REDO</button>
-    </div> -->
-</div>
+    <div class="canvas-wrapper" id="canvas-wrapper">
+        <!-- <div class="upper-panel">
+            <div class="buttons-container">
+                <button>LEAVE</button>
+                <button>CLEAR</button>
+                <button>COLOR</button>
+                <button>SIZE</button>
+            </div>
+        </div> -->
+        <!-- <div class="canvas-container"> -->
+            <canvas #canvas class="canvas" id="canvas" height="700" width="1000"></canvas>
+        <!-- </div> -->
+        <!-- <div class="lower-panel">
+            <div class="buttons-container">
+                <button>LEAVE</button>
+                <button>CLEAR</button>
+                <button>COLOR</button>
+                <button>SIZE</button>
+            </div>
+        </div> -->
+    </div>
+    <div class="right-panel">
+        <app-chat></app-chat>
+    </div>
+</div> 

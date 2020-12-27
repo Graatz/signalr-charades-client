@@ -1,26 +1,23 @@
 :host {
     height: 100%;
+    width: 100%;
 }
 
 .chat-container {
-    width: 300px;
+    width: 100%;
     height: 100%;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     background-color: #fff;
 
-    input {
-        background-color: #eee;
-        color: #000;
-    }
-
     .chat-message {
-        padding: 15px;
+        padding: 5px;
         width: 100%;
+        display: flex;
         margin-bottom: 10px;
         border-radius: 5px;
-        background-color: #eee;
+        background-color: #fff;
         overflow: hidden;
         word-break: break-all;
 
@@ -31,18 +28,24 @@
         p.chat-message-content {
             font-weight: 400;
         }
+
+        .player-avatar {
+            margin-right: 15px;
+        }
     }
 
     .current-player-chat-message {
-        background-color: #006eff !important;
+        background-color: #fff !important;
 
-        p {
-            color: #fff;
+        .chat-message-sender {
+           color: #006eff;
         }
     }
 
     .chat-message-sender {
-        font-size: 11px;
+        font-weight: 400;
+        font-size: 16px;
+        margin-bottom: 5px;
     }
 }
 

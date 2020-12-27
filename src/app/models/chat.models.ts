@@ -7,9 +7,12 @@ export interface Message {
 
 export interface IPoint {
     clientUniqueId: string;
+    canvasWidth: number;
+    canvasHeight: number;
     x: number;
     y: number;
     isFirstPointInSegment?: boolean;
+    isLastPointInSegment?: boolean;
 }
 
 export interface ILineSegments {
