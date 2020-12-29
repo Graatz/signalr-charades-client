@@ -1,97 +1,168 @@
 /* You can add global styles to this file, and also import other style files */
 * {
-    box-sizing: border-box;
+  box-sizing: border-box;
 }
 
-h1, h2, h3 {
-    font-family: 'Gochi Hand', cursive;;
-    color: #000;
-    margin: 0;
+h1,
+h2,
+h3 {
+  font-family: 'Gochi Hand', cursive;
+  color: #333;
+  margin: 0;
 }
 
 p {
-    font-family: 'Gochi Hand', cursive;;
-    font-weight: 400;
-    margin: 0;
-    font-size: 18px;
-    color: #000;
+  font-family: 'Gochi Hand', cursive;
+  font-weight: 400;
+  margin: 0;
+  font-size: 18px;
+  color: #8e8e8e;
+}
+
+ul {
+  margin: 0;
+  padding: 0 0 0 15px;
+
+  li {
+    margin-bottom: 10px;
+    padding: 0;
+    font-size: 24px;
+  }
 }
 
 body {
-    margin: 0;
-    font-family: 'Gochi Hand', cursive;;
-    background-color: #eee;
-    color: #000;
+  margin: 0;
+  font-family: 'Gochi Hand', cursive;
+  ;
+  background-color: #eee;
+  color: #000;
 }
 
 input {
-    font-family: 'Gochi Hand', cursive;;
-    padding: 15px;
-    font-size: 18px;
-    font-weight: 400;
-    background-color: #fff;
-    outline: none;
-    border: none;
-    color: #000;
-    border-radius: 5px;
-    border: 2px solid #eee;
+  font-family: 'Gochi Hand', cursive;
+  padding: 0px;
+  font-size: 30px;
+  font-weight: 400;
+  background-color: #fff;
+  outline: none;
+  border: none;
+  color: #000;
+  border-radius: 5px;
+  border-bottom: 2px solid #00a1ff2e;
+}
+
+::placeholder {
+  /* Chrome, Firefox, Opera, Safari 10.1+ */
+  opacity: 0.5;
+  /* Firefox */
 }
 
 button {
-    font-family: 'Gochi Hand', cursive;;
-    font-weight: 400;
-    font-size: 24px;
-    padding: 0;
-    border-radius: 5px;
-    background-color: #fff;
-    color: #000;
-    border: none;
-    outline: none;
-    transition: all 0.1s ease;
+  font-family: 'Gochi Hand', cursive;
+  ;
+  font-weight: 400;
+  font-size: 24px;
+  padding: 0;
+  border-radius: 5px;
+  background-color: #fff;
+  color: #000;
+  border: none;
+  outline: none;
+  transition: all 0.1s ease;
 
-    &:hover, &:focus {
-        cursor: pointer;
-        transform: scale(0.9);
-    }
+  &:hover,
+  &:focus {
+    cursor: pointer;
+    transform: scale(0.9);
+  }
 
-    & + button {
-        margin-left: 10px;
-    }
+  &+button {
+    margin-left: 10px;
+  }
 }
 
 .header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 25px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 25px;
 }
 
 .tile {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 30px;
+  background-color: #fff;
+  border-radius: 5px;
+  width: 900px;
+  max-width: 100%;
+  min-height: 600px;
+  max-height: 100%;
+
+  .tile.content {}
+
+  .tile-actions {
+    margin-top: 15px;
     display: flex;
-    flex-direction: column;
     justify-content: space-between;
-    padding: 30px;
-    background-color: #fff;
     border-radius: 5px;
-    width: 900px;
-    max-width: 100%;
-    min-height: 600px;
-    max-height: 100%;
-    
-    .tile.content {
-
-    }
-
-    .tile-actions {
-        margin-top: 15px;
-        display: flex;
-        justify-content: space-between;
-        border-radius: 5px;
-    }
+  }
 }
 
 .avatar {
-    border-radius: 50%;
-    width: 45px;
-    height: 45px;
+  border-radius: 50%;
+  width: 45px;
+  height: 45px;
+}
+
+.mb-1 {
+  margin-bottom: 5px;
+}
+
+.mb-2 {
+  margin-bottom: 10px;
+}
+
+.mb-3 {
+  margin-bottom: 15px;
+}
+
+.mb-4 {
+  margin-bottom: 20px;
+}
+
+.mb-5 {
+  margin-bottom: 25px;
+}
+
+.pb-1 {
+  padding-bottom: 5px;
+}
+
+.pb-2 {
+  padding-bottom: 10px;
+}
+
+.pb-3 {
+  padding-bottom: 15px;
+}
+
+::-webkit-scrollbar {
+  width: 7px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #fff;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #ddd;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #ccc;
 }

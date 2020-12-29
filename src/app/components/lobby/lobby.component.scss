@@ -13,3 +13,16 @@
 
     margin-bottom: 10px;
 }
+
+.lobby-content {
+    display: flex;
+    flex-wrap: wrap;
+
+    .lobby-players {
+        width: 50%;
+    }
+
+    .lobby-notifications {
+        width: 50%;
+    }
+}

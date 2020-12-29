@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { distinctUntilChanged, takeUntil } from 'rxjs/operators';
 import { BaseComponent } from 'src/app/helpers/base.component';
@@ -11,7 +11,7 @@ import { LobbiesService } from 'src/app/services/lobbies.service';
   templateUrl: './lobby.component.html',
   styleUrls: ['./lobby.component.scss']
 })
-export class LobbyComponent extends BaseComponent implements OnInit {
+export class LobbyComponent extends BaseComponent implements OnInit, OnDestroy {
   public notifications: string[] = [];
   public lobby: ILobby;
 
@@ -65,5 +65,9 @@ export class LobbyComponent extends BaseComponent implements OnInit {
 
   public onStartGameClick(): void {
     this.lobbiesService.startGame(this.lobby.id);
+  }
+
+  public ngOnDestroy(): void {
+    super.ngOnDestroy();
   }
 }

@@ -1,22 +1,9 @@
 
 .lobby {
-    display: flex;
-    justify-content: space-between;
-    padding: 25px;
-    background-color: #eee;
-    border-radius: 5px;
-    margin-bottom: 25px;
+    border-bottom: 2px solid #00a1ff2e;
 
     &:hover {
         cursor: pointer;
-    }
-
-    &:not(.lobby-game-in-progress):hover {
-        background-color: #006eff;
-
-        p {
-            color: #fff;
-        }
     }
 
     &.lobby-game-in-progress {

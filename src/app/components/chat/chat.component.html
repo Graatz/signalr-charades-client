@@ -1,4 +1,5 @@
 <div class="chat-container">
+    <h2 class="mb-5">Chat</h2>
     <div #chat class="chat-messages">
         <!--<ng-container *ngFor="let champion of (championsData | async)?.data | keyvalue">
             <p class="chat-message">{{champion.value.name}}</p>
@@ -13,5 +14,5 @@
             {{last ? scrollChatToBottom() : ''}}
         </div>
     </div>
-    <input [formControl]="chatInput" type="text" (keydown.enter)="sendMessage()" placeholder="Message">
+    <input [formControl]="chatInput" type="text" (keydown.enter)="sendMessage()" placeholder="Message" class="message-input">
 </div>

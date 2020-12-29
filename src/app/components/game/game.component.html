@@ -1,5 +1,6 @@
-<div class="game-container">
+<div class="game-container" @fade>
     <div class="left-panel">
+        <h2 class="mb-5">Players</h2>
         <div *ngFor="let player of lobby.players" class="player">
             <img [src]="player.avatar" alt="avatar" class="player-avatar avatar">
             <p class="player-name">{{ player.name }}</p>
@@ -15,14 +16,11 @@
             </div>
         </div> -->
         <!-- <div class="canvas-container"> -->
-            <canvas #canvas class="canvas" id="canvas" height="700" width="1000"></canvas>
+            <canvas #canvas class="canvas" id="canvas" height="714" width="820"></canvas>
         <!-- </div> -->
         <!-- <div class="lower-panel">
             <div class="buttons-container">
-                <button>LEAVE</button>
-                <button>CLEAR</button>
-                <button>COLOR</button>
-                <button>SIZE</button>
+                <button (click)="onLeaveLobbyClick()">Leave lobby</button>
             </div>
         </div> -->
     </div>

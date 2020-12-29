@@ -1,12 +1,14 @@
 <form [formGroup]="form" class="tile" (ngSubmit)="onSubmit()">
-    <div class="tile-content">
+    <div class="tile-content" @fade>
         <div class="header">
             <h1>New player</h1>
         </div>
-        <p class="p-new-player">Please, choose your player name</p>
-        <input type="text" placeholder="Player name" formControlName="playerName">
+        <p class="mb-5">Please, choose your player name</p>
+        <div style="display: flex; flex-grow: 1; align-items: center;">
+            <input type="text" placeholder="Player name" formControlName="playerName" maxlength="16">
+        </div>
     </div>
-    <div class="tile-actions">
+    <div class="tile-actions" @fade>
         <button type="submit">Confirm</button>
     </div>
 </form>

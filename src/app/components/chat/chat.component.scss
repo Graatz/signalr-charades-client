@@ -10,6 +10,11 @@
     flex-direction: column;
     justify-content: space-between;
     background-color: #fff;
+    border-radius: 5px;
+
+    .message-input {
+        margin: 25px 0 0 0;
+    }
 
     .chat-message {
         padding: 5px;
@@ -20,10 +25,6 @@
         background-color: #fff;
         overflow: hidden;
         word-break: break-all;
-
-        p {
-            color: #000;
-        }
 
         p.chat-message-content {
             font-weight: 400;
@@ -38,7 +39,7 @@
         background-color: #fff !important;
 
         .chat-message-sender {
-           color: #006eff;
+           color: #00a1ffcf;
         }
     }
 
@@ -50,7 +51,6 @@
 }
 
 .chat-messages {
-    padding: 15px;
     max-height: 100%;
     overflow: auto;
 }

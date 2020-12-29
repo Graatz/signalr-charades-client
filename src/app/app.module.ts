@@ -19,6 +19,7 @@ import { LobbyComponent } from './components/lobby/lobby.component';
 import { NewLobbyComponent } from './components/new-lobby/new-lobby.component';
 import { PlayerGuard } from './helpers/guards/player.guard';
 import { BaseComponent } from './helpers/base.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -35,7 +36,8 @@ import { BaseComponent } from './helpers/base.component';
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    BrowserAnimationsModule
   ],
   providers: [
     HubService,

@@ -112,6 +112,7 @@ export class LobbiesService {
 
         this.hubService.on('CurrentPlayerLeftLobby', () => {
             this.currentlyJoinedLobby$.next(null);
+            console.warn('LOL')
             this.currentPlayerLeftLobby.emit();
         });
     }

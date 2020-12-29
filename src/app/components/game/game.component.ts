@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef, NgZone, AfterViewInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, NgZone, AfterViewInit, OnDestroy } from '@angular/core';
 import { RiotService } from '../../services/riot.service';
 import { Observable, fromEvent } from 'rxjs';
 import { IChampionsData } from '../../models/riot.models'
@@ -9,6 +9,7 @@ import { debounceTime, distinctUntilChanged, takeUntil } from 'rxjs/operators';
 import { LobbiesService } from 'src/app/services/lobbies.service';
 import { ILobby } from 'src/app/models/lobbies.models';
 import { PlayerService } from 'src/app/services/player.service';
+import { Router } from '@angular/router';
 
 interface ICanvasConfiguration {
   lineWidth: number;
@@ -20,7 +21,7 @@ interface ICanvasConfiguration {
   templateUrl: './game.component.html',
   styleUrls: ['./game.component.scss']
 })
-export class GameComponent extends BaseComponent implements OnInit, AfterViewInit{
+export class GameComponent extends BaseComponent implements OnInit, AfterViewInit, OnDestroy {
   public lobby: ILobby;
   public playerId: string;
 
@@ -34,8 +35,8 @@ export class GameComponent extends BaseComponent implements OnInit, AfterViewIni
   canvas: ElementRef<HTMLCanvasElement>;
 
   canvasConfig: ICanvasConfiguration = {
-    lineWidth: 3,
-    lineColor: '#fff'
+    lineWidth: 5,
+    lineColor: '#000'
   }
 
   private ctx: CanvasRenderingContext2D;
@@ -59,6 +60,7 @@ export class GameComponent extends BaseComponent implements OnInit, AfterViewIni
     protected readonly playerService: PlayerService,
     protected readonly drawingService: DrawingService,
     protected readonly ngZone: NgZone,
+    protected readonly router: Router
   ) {
     super();
   }
@@ -70,6 +72,7 @@ export class GameComponent extends BaseComponent implements OnInit, AfterViewIni
       distinctUntilChanged(),
       takeUntil(this.destroy$)
     ).subscribe((lobby: ILobby) => {
+      console.warn(lobby);
       this.lobby = lobby;
     })
 
@@ -123,10 +126,8 @@ export class GameComponent extends BaseComponent implements OnInit, AfterViewIni
 
       this.lastPosition = {
         clientUniqueId: point.clientUniqueId,
-        canvasWidth: point.canvasWidth,
-        canvasHeight: point.canvasHeight,
-        x: point.x,
-        y: point.y,
+        x: point.x / this.canvas.nativeElement.width,
+        y: point.y / this.canvas.nativeElement.width,
         isFirstPointInSegment: point.isFirstPointInSegment
       }
     }
@@ -134,9 +135,8 @@ export class GameComponent extends BaseComponent implements OnInit, AfterViewIni
 
   private drawLine(fromPoint: IPoint, toPoint: IPoint): void {
     this.ctx.beginPath();
-    this.ctx.moveTo(fromPoint.x * (this.canvas.nativeElement.width / fromPoint.canvasWidth), fromPoint.y * (this.canvas.nativeElement.height / fromPoint.canvasHeight));
-    this.ctx.lineTo(toPoint.x * (this.canvas.nativeElement.width / toPoint.canvasWidth), toPoint.y * (this.canvas.nativeElement.height / toPoint.canvasHeight));
-    this.ctx.closePath();
+    this.ctx.moveTo(fromPoint.x * this.canvas.nativeElement.width, fromPoint.y * this.canvas.nativeElement.height);
+    this.ctx.lineTo(toPoint.x * this.canvas.nativeElement.width, toPoint.y * this.canvas.nativeElement.height);
     this.ctx.stroke();
   }
 
@@ -148,7 +148,7 @@ export class GameComponent extends BaseComponent implements OnInit, AfterViewIni
     ).subscribe((event) => {
       this.ngZone.run(() => {
         this.updateCanvasWidth();
-        this.redraw();
+        
       });
     });
 
@@ -156,16 +156,19 @@ export class GameComponent extends BaseComponent implements OnInit, AfterViewIni
   }
 
   private updateCanvasWidth(): void {
-    var canvas = document.getElementById('canvas');
-    var canvasWrapper = document.getElementById('canvas-wrapper');
+    const canvas = document.getElementById('canvas');
+    const canvasWrapper = document.getElementById('canvas-wrapper');
 
-    var aspect = (canvas as any).height/(canvas as any).width;
-
-    var width = canvasWrapper.offsetWidth;
+    const canvasWrapperWidth = canvasWrapper.offsetWidth;
     //var height = canvasWrapper.offsetHeight;
 
-    (canvas as any).width = width;
-    (canvas as any).height = Math.round(width * aspect);
+    if ((canvas as any).width === canvasWrapperWidth) {
+      return;
+    }
+
+    const aspect = (canvas as any).height/(canvas as any).width;
+    (canvas as any).width = canvasWrapperWidth;
+    (canvas as any).height = Math.round(canvasWrapperWidth * aspect);
 
     if (!this.initialWidth) {
       this.initialWidth = (canvas as any).width;
@@ -174,19 +177,26 @@ export class GameComponent extends BaseComponent implements OnInit, AfterViewIni
 
     this.currentAspectRatioWidth = (canvas as any).width / this.initialWidth;
     this.currentAspectRatioHeight = (canvas as any).height / this.initialHeight;
+
+    this.redraw();
   }
 
   private initCanvasSettings(): void {
     this.ctx.lineWidth = this.canvasConfig.lineWidth;
+    this.ctx.strokeStyle = this.canvasConfig.lineColor;
     this.ctx.lineCap = 'round';
-    this.ctx.lineJoin = "round";
+    this.ctx.lineJoin = 'round';
   }
 
   private initCanvasEventListeners(): void {
-    this.canvas.nativeElement.addEventListener("mousedown", (event) => this.onMouseDown(event));
+    // Create new methods for touch events
+    //document.addEventListener("touchend", (event) => this.onMouseUp(event));
+    //document.addEventListener("touchcancel", (event) => this.onMouseUp(event));
+    //this.canvas.nativeElement.addEventListener("touchstart", (event) => this.onMouseDown(event));
+    //this.canvas.nativeElement.addEventListener("touchmove", (event) => this.onMouseMove(event));
+    
     document.addEventListener("mouseup", (event) => this.onMouseUp(event));
-
-    // this.canvas.nativeElement.addEventListener("mouseup", (event) => this.onMouseUp(event));
+    this.canvas.nativeElement.addEventListener("mousedown", (event) => this.onMouseDown(event));
     this.canvas.nativeElement.addEventListener("mousemove", (event) => this.onMouseMove(event));
     this.canvas.nativeElement.addEventListener("mouseout", (event) => this.onMouseOut(event));
     this.canvas.nativeElement.addEventListener("mouseenter", (event) => this.onMouseEnter(event));
@@ -197,14 +207,15 @@ export class GameComponent extends BaseComponent implements OnInit, AfterViewIni
       return;
     }
 
-    this.drawLine(this.lastPosition, { x: e.offsetX, y: e.offsetY, canvasWidth: this.canvas.nativeElement.width, canvasHeight: this.canvas.nativeElement.height, } as IPoint);
+    this.drawLine(this.lastPosition, { 
+      x: e.offsetX / this.canvas.nativeElement.width,
+      y: e.offsetY / this.canvas.nativeElement.height 
+    } as IPoint);
 
     this.lastPosition = {
       clientUniqueId: this.playerId,
-      canvasWidth: this.canvas.nativeElement.width,
-      canvasHeight: this.canvas.nativeElement.height,
-      x: e.offsetX,
-      y: e.offsetY,
+      x: e.offsetX / this.canvas.nativeElement.width,
+      y: e.offsetY / this.canvas.nativeElement.height,
       isLastPointInSegment: false
     } as IPoint;
 
@@ -221,16 +232,17 @@ export class GameComponent extends BaseComponent implements OnInit, AfterViewIni
 
     this.lastPosition = {
       clientUniqueId: this.playerId,
-      canvasWidth: this.canvas.nativeElement.width,
-      canvasHeight: this.canvas.nativeElement.height,
-      x: e.offsetX,
-      y: e.offsetY,
+      x: e.offsetX / this.canvas.nativeElement.width,
+      y: e.offsetY / this.canvas.nativeElement.height,
       isFirstPointInSegment: true
     } as IPoint;
 
     this.currentSegment.points.push(this.lastPosition);
 
-    this.drawLine(this.lastPosition, { x: e.offsetX, y: e.offsetY, canvasWidth: this.canvas.nativeElement.width, canvasHeight: this.canvas.nativeElement.height, } as IPoint);
+    this.drawLine(this.lastPosition, { 
+      x: e.offsetX / this.canvas.nativeElement.width,
+      y: e.offsetY / this.canvas.nativeElement.height 
+    } as IPoint);
 
     this.drawingService.sendSegmentPoint(this.lastPosition, this.lobby.id);
   }
@@ -266,10 +278,8 @@ export class GameComponent extends BaseComponent implements OnInit, AfterViewIni
 
     // this.drawing = false;
     this.lastPosition = {
-      canvasWidth: this.canvas.nativeElement.width,
-      canvasHeight: this.canvas.nativeElement.height,
-      x: e.offsetX,
-      y: e.offsetY
+      x: e.offsetX / this.canvas.nativeElement.width,
+      y: e.offsetY / this.canvas.nativeElement.height,
     } as IPoint;
 
     this.currentSegment.points.push(this.lastPosition);
@@ -282,10 +292,8 @@ export class GameComponent extends BaseComponent implements OnInit, AfterViewIni
     } as ILineSegment;
 
     this.lastPosition = {
-      x: e.offsetX,
-      y: e.offsetY,
-      canvasWidth: this.canvas.nativeElement.width,
-      canvasHeight: this.canvas.nativeElement.height
+      x: e.offsetX / this.canvas.nativeElement.width,
+      y: e.offsetY / this.canvas.nativeElement.height,
     } as IPoint;
 
     this.currentSegment.points.push(this.lastPosition);
@@ -307,5 +315,19 @@ export class GameComponent extends BaseComponent implements OnInit, AfterViewIni
         this.drawLine(segment.points[i], segment.points[i + 1]);
       }
     }
+  }
+
+  public onLeaveLobbyClick(): void {
+    this.lobbiesService.leaveLobby(this.lobby.id);
+    this.lobbiesService.currentPlayerLeftLobby.pipe(
+      distinctUntilChanged(),
+      takeUntil(this.destroy$)
+    ).subscribe(() => {
+      this.router.navigateByUrl('lobbies');
+    });
+  }
+
+  public ngOnDestroy(): void {
+    super.ngOnDestroy();
   }
 }

@@ -1,20 +1,22 @@
 <div class="tile">
-    <div class="tile-content">
+    <div class="tile-content" @fade>
         <div class="header">
             <h1>Lobby <span *ngIf="lobby">({{ lobby.name }})</span></h1>
         </div>
         
-        <p *ngFor="let notification of notifications" class="p-notification">{{ notification }}</p>
-        
-        <div class="header">
-            <h2>Connected players</h2>
-        </div>
-        <div *ngFor="let player of lobby.players" class="player">
-            <img [src]="player.avatar" alt="avatar" class="player-avatar avatar">
-            <p class="player-name">{{ player.name }}</p>
+        <div class="lobby-content">
+            <div class="lobby-players">
+                <div *ngFor="let player of lobby.players" class="player">
+                    <img [src]="player.avatar" alt="avatar" class="player-avatar avatar">
+                    <p class="player-name">{{ player.name }}</p>
+                </div>
+            </div>
+            <!-- <div class="lobby-notifications">
+                <p *ngFor="let notification of notifications" class="p-notification">{{ notification }}</p>
+            </div> -->
         </div>
     </div>
-    <div class="tile-actions">
+    <div class="tile-actions" @fade>
         <button type="button" (click)="onLeaveLobbyClick()">Leave</button>
         <button type="button" (click)="onStartGameClick()" class="btn-start-game">Start game</button>
     </div>
