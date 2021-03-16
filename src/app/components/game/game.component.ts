@@ -126,8 +126,8 @@ export class GameComponent extends BaseComponent implements OnInit, AfterViewIni
 
       this.lastPosition = {
         clientUniqueId: point.clientUniqueId,
-        x: point.x / this.canvas.nativeElement.width,
-        y: point.y / this.canvas.nativeElement.width,
+        x: point.x,
+        y: point.y,
         isFirstPointInSegment: point.isFirstPointInSegment
       }
     }
